@@ -41,6 +41,18 @@ data "aws_iam_policy_document" "LambdaPolicy" {
       "${aws_cloudwatch_log_group.lambda.arn}:*"
     ]
   }
+  dynamic "statement" {
+    for_each = var.vpc_config != null ? [var.vpc_config] : []
+    content {
+      effect = "Allow"
+      actions = [
+        "ec2:CreateNetworkInterface",
+        "ec2:DescribeNetworkInterfaces",
+        "ec2:DeleteNetworkInterface"
+      ]
+      resources = ["*"]
+    }
+  }
 }
 
 resource "aws_iam_role_policy" "LambdaRolePolicy" {
