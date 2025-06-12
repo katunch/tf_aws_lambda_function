@@ -73,9 +73,13 @@ data "archive_file" "lambda_package" {
   output_path = "${var.output_path}/${var.function_name}.zip"
 }
 
+locals {
+  lambda_function_name = var.jar_path != "" ? "${var.jar_path}-jar" : data.archive_file.lambda_package.output_path
+}
+
 // lambda function
 resource "aws_lambda_function" "fn" {
-  filename         = data.archive_file.lambda_package.output_path
+  filename         = local.lambda_function_name
   source_code_hash = data.archive_file.lambda_package.output_base64sha256
   function_name    = var.function_name
   role             = aws_iam_role.LambdaExecutionRole.arn
