@@ -25,6 +25,12 @@ variable "src_dir" {
   type        = string
 }
 
+variable "jar_path" {
+  description = "The path to the JAR file for the Lambda function"
+  type        = string
+  default     = ""
+}
+
 variable "output_path" {
   description = "The output path for the Lambda function zip package"
   type        = string
