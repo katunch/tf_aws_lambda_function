@@ -88,13 +88,20 @@ resource "aws_lambda_function" "fn" {
   architectures    = var.architectures
   timeout          = var.timeout
   memory_size      = var.memory_size
+  
+  ephemeral_storage {
+    size = var.ephemeral_storage_size
+  }
+
   environment {
     variables = var.environment_variables
   }
+
   logging_config {
     log_format = "JSON"
     log_group  = aws_cloudwatch_log_group.lambda.name
   }
+
   layers = var.lambda_layer_arns
 
   dynamic "vpc_config" {

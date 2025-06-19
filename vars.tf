@@ -87,6 +87,12 @@ variable "vpc_config" {
   default = null
 }
 
+variable "ephemeral_storage_size" {
+  description = "The size of the ephemeral storage for the Lambda function in MB"
+  type        = number
+  default     = 512
+}
+
 variable "tags" {
   description = "The tags for the Lambda function"
   type        = map(string)
