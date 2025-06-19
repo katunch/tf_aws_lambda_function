@@ -74,7 +74,7 @@ data "archive_file" "lambda_package" {
 }
 
 locals {
-  lambda_function_name = var.jar_path != "" ? "${var.jar_path}-jar" : data.archive_file.lambda_package.output_path
+  lambda_function_name = var.jar_path != "" ? "${var.jar_path}" : data.archive_file.lambda_package.output_path
 }
 
 // lambda function
